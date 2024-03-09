@@ -1,0 +1,8 @@
+            - name: Issue 1.2
+  uses: https://github.com/NME-rahul/AI-AGS/
+  with:
+    token: 
+    title: Issue 1.2
+    days: sunday, monday, tuesday
+    date_options: 12/03/2024
+          
