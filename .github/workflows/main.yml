@@ -1,8 +1,22 @@
-            - name: Issue 1.2
-  uses: https://github.com/NME-rahul/AI-AGS/
-  with:
-    token: 
-    title: Issue 1.2
-    days: sunday, monday, tuesday
-    date_options: 12/03/2024
-          
+name: Email Reminder
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  send-email-reminder:
+    runs-on: ubuntu-latest
+    step:
+      -name: set up Python
+       uses: actions/setup-python@v2
+       with:
+         python-version: '3.x'
+      -name: install dependencies
+       run: pip install -r requirements.txt
+      -name: send email remainder
+       env:
+         SMTP_SERVER: ${{secrets.SMTP_SERVER}}
+         SMTP_PORT: ${{secrets.SMTP_PORT}}
+         SMTP_SUERNAME: ${{secrets.SMTP_USERNAME}}
+         SMTP_PASSWORD: ${{secrets.SMTP_PASSWORD}}
+         TO_EMAIL: neelamsethia066@gmail.com, bhushit6122@gmail.com, harshitmd99@gamil.com, rv42088@gmail.com
+       run: python issue_reminder.py
