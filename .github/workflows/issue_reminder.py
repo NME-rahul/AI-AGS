@@ -21,7 +21,7 @@ def send_reminder(sender_email, sender_password, recipient_emails, subject, mess
 if __name__ == '__main__':
     sender_email = 'rv42088@gmail.com'
     sender_password = 'vbor sakr qakc dqya'
-    recipient_emails = ['neelamsethia066@gmail.com', 'bhushit6122@gmail.com', 'harshitmd99@gamil.com', 'rv42088@gmail.com']
+    recipient_emails = ['neelamsethia066@gmail.com', 'bhushit6122@gmail.com', 'harshitkumardaga@gmail.com', 'rv42088@gmail.com']
 
     subject = '🚀 Action Required: Project Issue Reminder 🚀'
     message_body = '''Dear Team,
