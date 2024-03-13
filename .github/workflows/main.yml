@@ -1,10 +1,10 @@
 name: Email Reminder
 on:
   schedule:
-    - cron: '30 4 * * 1'  # Run every Monday at 10:00 AM IST
-    - cron: '30 4 * * 2'  # Run every Tuesday at 10:00 AM IST
-    - cron: '30 4 * * 3'  # Run every Monday at 10:00 AM IST
-    - cron: '30 4 * * 4'  # 
+    - cron: '30 4 * * 1'  # IST: 5.30 Hr. Format: Min Hr WOM Month DOW
+    - cron: '30 4 * * 2'  # * all
+    - cron: '30 4 * * 3'  # WOM: Weak of Month, DOW: Day of Weak
+    - cron: '30 4 * * 4' 
 jobs:
   send-email-reminder:
     runs-on: ubuntu-latest
