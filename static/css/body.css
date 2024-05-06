@@ -1,0 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  background-size: cover;  
+  width:100%; height:100%; margin:0; padding:0;
+}
+
+.mainbody{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

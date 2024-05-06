@@ -1,0 +1,31 @@
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+#drop-area {
+  border: 3px dashed #ccc;
+  padding: 20px;
+  cursor: pointer;
+  height: 300px;
+  font-size: 50px;
+}
+
+#drop-area.highlight {
+  border-color: #007bff;
+}
+.upload-image{
+	height: 35%;
+	margin: 0%;
+}
+#fileList {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#fileList img {
+  max-width: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

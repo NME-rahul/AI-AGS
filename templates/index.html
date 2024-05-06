@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/gif" href="/images/icons8-done.gif">
+		<link rel="stylesheet" href="{{url_for('static', filename='css/DropDown-Input.css')}}" />
+		<link rel="stylesheet" href="{{url_for('static', filename='css/header-footer.css')}}" />
+		<link rel="stylesheet" href="{{url_for('static', filename='css/getScore.css')}}" />
+		<link rel="stylesheet" href="{{url_for('static', filename='css/body.css')}}" />
+		<title>AI Grading System</title>
+	</head>
+	<body>
+		<div class="body-main" id="birds-animation">
+			<header>
+				<div class="header">
+					<div class="header-align">
+						<a class="header-element" href="#">Home</a>
+						<a class="header-element" href="#">About us</a> 
+						<a class="header-element" href="{{url_for('static', filename='files/settings.html')}}">Setting</a>
+					</div>
+				</div>
+			</header>
+			<div class="container">
+			    <div id="drop-area">
+					<label for="fileInput">
+					    <img id="uploadImage" class="upload-image" src="{{url_for('static', filename='images/cloud-upload.svg')}}">
+						<p>Drop&Drop Files here</p>
+					</label>
+					<input id="fileInput" type="file" accept="image/*" multiple style="display: none;">					
+				  	<br>
+			    </div>
+			</div>
+			<div class="box">
+				<a class="box-button" href="#popup1">Get Score</a>
+			</div>
+			<div id="popup1" class="overlay">
+				<div class="popup">
+					<h2>{{candidate_name}}</h2>
+					<a class="close" href="#">&times;</a>
+					<div class="content">
+						<p>{{score}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br><br><br><br><br>
+		<footer>
+			<div class="footer">
+				<div class="footer-align"><a class="footer-element" href="#">Home</a></div>
+				<div class="footer-align"><a class="footer-element" href="#">Home</a></div>
+				<div class="footer-align"><a class="footer-element" href="#">Home</a></div>
+				<div class="footer-info"><img src=""><a class="footer-text" href="https://github.com/NME-rahul"> &nbsp Home &nbsp | &nbsp  Copyrighted to @NME-rahul</a></div>
+			</div>
+		</footer>
+	</body>
+	<script src="{{url_for('static', filename='js/ags.js')}}"></script>
+	<script src="{{url_for('static', filename='js/supporter-birds.js')}}"></script>
+	<script src="{{url_for('static', filename='js/birds.js')}}"></script>
+	<script>
+	VANTA.BIRDS({
+	  el: "html",
+	  mouseControls: true,
+	  touchControls: true,
+	  gyroControls: true,
+	  minHeight: 400,
+	  minWidth: 600,
+	  scale: 1.00,
+	  scaleMobile: 1.00,
+	  backgroundColor: 0xb1ff,
+	  color1: 0xff174d,
+	  color2: 0xdbdff,
+	  birdSize: 2.00,
+	  wingSpan: 23.00,
+	  speedLimit: 2.00,
+	  separation: 15.00,
+	  alignment: 56.00,
+	  cohesion: 32.00,
+	  quantity: 3.00
+	})
+	</script>
+</html>
