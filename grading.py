@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 import os
-
-from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from numpy import sqrt, power, sum, dot, array, average
 
@@ -24,12 +22,15 @@ def split_into_lines(image_name, image, temperature, offset=2, working_dic=None)
   img_cnt = 0
   
   if working_dic == None:
-    working_dic = os.getcwd() + "/splited_images"
+    working_dic = os.getcwd()
 
+  working_dic = os.path.join(working_dic, "split_images")
   os.system(f'mkdir {working_dic}')
 
   split_img_paths = []
   image_name, ext = image_name.split('.')
+  working_dic = os.path.join(working_dic, image_name)
+  os.system(f'mkdir {working_dic}')
 
   while True:
     if i == num_rows:
@@ -43,9 +44,6 @@ def split_into_lines(image_name, image, temperature, offset=2, working_dic=None)
         x = 0;
 
     if 0 not in row and  x == 0:      
-      split_path = os.path.join(working_dic, image_name)
-      os.system(f'mkdir {split_path}')
-
       split_img = image_name + f"_{img_cnt}." + str(ext)
       split_img_paths.append(os.path.join(working_dic, split_img))
       cv2.imwrite(split_img_paths[img_cnt], image[save-offset:i+offset, :])
@@ -68,7 +66,7 @@ def image_to_text(model, processor, split_img_paths):
 
   return generated_text
 
-def get_score(true_answers, answers, grad_scale):
+def get_score(true_vec, answers, grad_scale, tokenizer, max_length):
   def cosine(vec1, vec2):
     similarity = []
     for x, y in zip(vec1, vec2):
@@ -77,13 +75,6 @@ def get_score(true_answers, answers, grad_scale):
       similarity.append( nume / denom )
     return array(similarity)
 
-  tokenizer = Tokenizer(oov_token='<oov>')
-  tokenizer.fit_on_texts(true_answers)
-
-  vec1 = tokenizer.texts_to_sequences(true_answers)
-  max_length = max([len(_) for _ in vec1])
-  vec1 = array(pad_sequences(vec1, maxlen=max_length, padding='post'))
   vec2 = tokenizer.texts_to_sequences(answers)
   vec2 = array(pad_sequences(vec2, maxlen=max_length, padding='post'))
-
-  return cosine(vec1, vec2) * grad_scale
+  return cosine(true_vec, vec2) * grad_scale
