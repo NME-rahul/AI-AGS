@@ -2,7 +2,7 @@
 
 1. install miniconda(recommended)
 
-2. Create Virtual environement
+2. Create Virtual environement.
 
        conda create --name <environment_name> python=<version>
 
