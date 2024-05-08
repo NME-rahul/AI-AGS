@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template
 import threading
+import sys
+
+error_1 = 'Error: Provide necessary argument to run the code.\n'
 
 app = Flask(__name__)
 
@@ -27,4 +30,6 @@ def index():
 
         
 if __name__ == '__main__':
-    app.run(port=2543, debug=True)
+    if len(sys.argv) == 1:
+        sys.exit(error_1)
+    app.run(port=sys.argv[1], debug=sys.argv[2])
