@@ -1,0 +1,42 @@
+[
+  {
+    "Subject": "computer Networks",
+    "ID": "01",
+    "RefrenceBook": "Data-Communication-and-Networking-by-Behrouz-A.Forouzan",
+    "Data": [
+      {
+        "question": "Data rate limits?",
+        "answer": [
+          "Data rate depends on three factors",
+          "1. The bandwidth available",
+          "2. The level of signals we use have",
+          "3. The Quality of the channel"
+        ]
+      },
+      {
+        "question": "",
+        "answer": []
+      },
+      {
+        "question": "How bandwidth is a network performace measuring tool?",
+        "answer": [
+          "One chracteristic that measures network performace is bandwidth. It measures value in two different context, one is bandwidth in hertz and other is bandwidth in bits per seconds. Bandwidth in hertz is the range of frequencies contained in a composite signal or the range of frequencies a channel can pass. In the terms of bits per second, it is the number of bits per second that a channel, a link or even a network can transmit."
+        ]
+      },
+      {
+        "question": "What is throughput?",
+        "answer": [
+          "The throughput is a measure of how fast we can actually send data through a network.",
+          "The Actual rate of message delivery over a communication. This rate can be altered by reasons such as quality of channel medium, receiver's performance, etc."
+        ]
+      },
+      {
+        "question": "bandwidth-delay product",
+        "answer": [
+          "Product of bandwidth and delay is the number of bits that can fill the link",
+          ""
+        ]
+      }
+    ]
+  }
+]

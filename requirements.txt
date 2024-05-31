@@ -1,6 +1,19 @@
+<<<<<<< HEAD
+transformers
+numpy
+opencv-python
+flask
+pillow
+torch
+nltk
+scikit-learn
+scipy
+typing_extensions
+=======
 nltk
 flask
 torch
 scikit-learn
 numpy
 pillow
+>>>>>>> 6ed18ab0bf32a4d2d80413a07336dd9c8f65fd1c

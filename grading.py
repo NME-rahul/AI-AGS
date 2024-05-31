@@ -1,80 +1,103 @@
-import cv2
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tag import pos_tag
+from collections import Counter
+
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from numpy import sqrt, power, sum, dot, array, average
 
-def preprocess_image(path, img_shape=1024):
-  image_name = path.split('/')[-1]
-  image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-  image = cv2.threshold(image, 100, 255, 0)
-  image = image[1]
-  image = cv2.resize(image, (img_shape, img_shape))
-  return image_name, image
+os.environ['NLTK_DATA'] =  f"c:/Users/{os.getenv('USER')}/AppData/Roaming/nltk_data"
 
-def split_into_lines(image_name, image, temperature, offset=2, working_dic=None):
-  x = 1; #binary semaphore to get lock on first black and after first white line
-  i = 0;
-  num_rows = image.shape[0]
 
-  threshold = image.shape[1] * (temperature/10) #base 10
+VARIABLES = {
+    "vectorizer": None,
+    "lammatizer": None,
+    "feature_count_x": None,
+    "vec1": None,
+    "stop_words": None,
+    "scale": 10,
+}
 
-  img_cnt = 0
-  
-  if working_dic == None:
-    working_dic = os.getcwd()
 
-  working_dic = os.path.join(working_dic, "split_images")
-  os.system(f'mkdir {working_dic}')
+def feature_count(paragraph):
+  sentences = sent_tokenize(paragraph)
 
-  split_img_paths = []
-  image_name, ext = image_name.split('.')
-  working_dic = os.path.join(working_dic, image_name)
-  os.system(f'mkdir {working_dic}')
+  total_words = 0
+  total_nouns = 0
+  total_adverbs = 0
+  total_objects = 0
 
-  while True:
-    if i == num_rows:
-      break;
+  for sentence in sentences:
+      words = word_tokenize(sentence)
+      tagged_words = pos_tag(words)
 
-    row = image[i, :]
+      num_words = len(words)
+      total_words += num_words
 
-    if 0 in row and x == 1:
-      if np.count_nonzero(row == 0) > threshold:
-        save = i
-        x = 0;
+      num_nouns = len([word for word, tag in tagged_words if tag.startswith('NN')])
+      total_nouns += num_nouns
 
-    if 0 not in row and  x == 0:      
-      split_img = image_name + f"_{img_cnt}." + str(ext)
-      split_img_paths.append(os.path.join(working_dic, split_img))
-      cv2.imwrite(split_img_paths[img_cnt], image[save-offset:i+offset, :])
-      x = 1;
-      img_cnt += 1
+      num_adverbs = len([word for word, tag in tagged_words if tag.startswith('RB')])
+      total_adverbs += num_adverbs
 
-    i = i + 1
-  return split_img_paths
+      num_objects = len([word for word, tag in tagged_words if tag.startswith('NN') or tag.startswith('PRP')])
+      total_objects += num_objects
+  num_sentences = len(sentences)
+  return {
+    "num_sentences": len(sentences),
+    "avg_words_per_sentence": total_words / num_sentences,
+    "avg_nouns_per_sentence": total_nouns / num_sentences,
+    "avg_adverbs_per_sentence": total_adverbs / num_sentences,
+    "avg_objects_per_sentence": total_objects / num_sentences,
+  }
 
-def image_to_text(model, processor, split_img_paths):
-  generated_text = ''
+def Error(x, y):
+  e = 0
+  for key in x.keys():
+    e += abs(x[key] - y[key])
+  return e / len(x)
 
-  for p in split_img_paths:
-    image = cv2.imread(p)
+def download_dependencies():
+  nltk.download('punkt')
+  nltk.download('averaged_perceptron_tagger')
+  nltk.download('stopwords')
+  nltk.download('wordnet')
 
-    pixel_values = processor(image, return_tensors="pt").pixel_values
-    generated_ids = model.generate(pixel_values)
+def prepare_true_answer(true_answers):
+  true_answers_processed = [preprocess(answer) for answer in true_answers]
+  vec1 = VARIABLES["vectorizer"].fit_transform(true_answers_processed)
+  return vec1
 
-    generated_text = generated_text + " " + processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+def preprocess(text):
+  tokens = word_tokenize(text.lower())
+  tokens = [VARIABLES["lammatizer"].lemmatize(token) for token in tokens if token.isalnum() and token not in VARIABLES["stop_words"]]
+  return ' '.join(tokens)
 
-  return generated_text
+def grade(vec1, written_answers, scale):
+    def cosine_similarity_nltk(vec1, vec2):
+        return cosine_similarity(vec1, vec2)
+    written_answers_processed = [preprocess(answer) for answer in written_answers]
+    vec2 = VARIABLES["vectorizer"].transform(written_answers_processed)
+    similarity_scores = cosine_similarity_nltk(vec1, vec2)
+    scaled_scores = similarity_scores * scale
+    return scaled_scores
 
-def get_score(true_vec, answers, grad_scale, tokenizer, max_length):
-  def cosine(vec1, vec2):
-    similarity = []
-    for x, y in zip(vec1, vec2):
-      nume = dot(x, y)
-      denom = sqrt(sum(power(x, 2)))*sqrt(sum(power(y, 2)))
-      similarity.append( nume / denom )
-    return array(similarity)
+def get_score(sentence1, sentence2): #text
+  y = feature_count(sentence2)
+  score = grade(VARIABLES["vec1"], [sentence2], VARIABLES["scale"])
+  return score - (Error(VARIABLES["feature_count_x"], y) / VARIABLES["scale"])
 
-  vec2 = tokenizer.texts_to_sequences(answers)
-  vec2 = array(pad_sequences(vec2, maxlen=max_length, padding='post'))
-  return cosine(true_vec, vec2) * grad_scale
+
+def init(true_answers): #text
+  try:
+    VARIABLES["vectorizer"], VARIABLES['lammatizer'], VARIABLES["stop_words"] = TfidfVectorizer(), WordNetLemmatizer(), set(stopwords.words('english'))
+    VARIABLES["feature_count_x"] = feature_count(true_answers)
+    VARIABLES["vec1"] = prepare_true_answer([true_answers])
+    return True
+  except:
+    return False
