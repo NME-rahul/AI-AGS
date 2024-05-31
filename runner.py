@@ -6,7 +6,6 @@ import grading
 import model
 import sys
 
-
 def start(VARIABLES, SETTINGS):
   image_name, image = model.preprocess_image(VARIABLES['img_path'])
   split_img_paths = model.split_into_lines(image_name, image, 
@@ -17,7 +16,6 @@ def start(VARIABLES, SETTINGS):
                                          processor = VARIABLES['processor'], 
                                          split_img_paths = split_img_paths)
   score =  grading.get_score(VARIABLES["true_answers"], generated_text)
-
   return score
 
 def downloads(SETTINGS):
@@ -41,7 +39,6 @@ def setupSettings(VARIABLES, SETTINGS):
     VARIABLES['model'] = VisionEncoderDecoderModel.from_pretrained(os.path.join(os.getcwd(), SETTINGS['model_directory'], SETTINGS['model_publisher'], SETTINGS['model_name']))
   else:
     sys.exit('model not found, retry after downloading.')
-    
   if VARIABLES['working_dic'] == None:
     VARIABLES['working_dic'] = os.getcwd()
   if not VARIABLES['tokenizer']:
