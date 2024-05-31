@@ -3,11 +3,11 @@ import grading
 import os
 
 VARIABLES = {'model': None, 
-             'processor': None, 
+	     'processor': None, 
              'true_answers': "live in Lviv. everyday I go to work by bus also i would like to visit Mars",
-		     'tokenizer': False,
-		     'img_path': "C:/Users/arvin/OneDrive/Desktop/AI-AGS/download.jpeg",
-		     'working_dic': None}
+	     'tokenizer': False,
+	     'img_path': "C:/Users/arvin/OneDrive/Desktop/AI-AGS/download.jpeg",
+	     'working_dic': None}
 
 SETTINGS = {'max_length': None,
             'model_directory' : "models",
