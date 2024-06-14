@@ -1,66 +1,75 @@
 header{
-	    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-	    padding: 12px;
-	    border-radius: 20px; /* Rounded corners, top left and top right */
-	    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-		text-decoration: none;
-		margin-right: 100px;
-		margin-left: 100px;
-		margin-top: 5px;
-		padding: 18px;
-	}
+	background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+	padding: 12px;
+	border-radius: 20px; /* Rounded corners, top left and top right */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+	text-decoration: none;
+	margin-right: 100px;
+	margin-left: 100px;
+	margin-top: 5px;
+	padding: 18px;
+}
 	
-	.header-align{
-		text-align: center;
-		padding: 10px;
-		margin-top: 0px;
-	}
-	.header-element{
+.header-align{
+	text-align: center;
+	padding: 10px;
+	margin-top: 0px;
+}
+.header-element{
         background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
         padding: 12px;
         border-radius: 20px; /* Rounded corners, top left and top right */
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-		text-decoration: none;
-		color: black;
-		transition: transform 0.3s ease;
+	text-decoration: none;
+	color: black;
+	transition: transform 0.3s ease;
 	}
-	.header-element:hover{
-		transform: scale(1.1);
-	}
-	.header-info.a{
-		text-decoration: none;
-	}
+.header-element:hover{
+	transform: scale(1.1);
+}
+.header-info.a{
+	text-decoration: none;
+}
 	
 
 footer{
-	    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-	    padding: 12px;
-	    border-radius: 20px; /* Rounded corners, top left and top right */
-	    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-		text-decoration: none;
-		padding: 18px;
-		text-align: center;
-		margin-right: 5px;
-		margin-left: 5px;
-		margin-bottom: 5px;
-	}
+	background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+	padding: 12px;
+	border-radius: 20px; /* Rounded corners, top left and top right */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+	padding: 18px;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
 	
-	.footer-align{
-		text-align: left;
-		padding: 15px;
-	}
-	.footer-element{
-        background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+.footer-templates{
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.footer-text{
+	text-decoration: none;
+	color: black;
+}
+.footer-element{
+	background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
         padding: 12px;
-        border-radius: 20px; /* Rounded corners, top left and top right */
+        border-radius: 15px; /* Rounded corners, top left and top right */
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-		text-decoration: none;
-		color: black;
-		transition: transform 0.3s ease;
-	}
-	.footer-element:hover{
-		transform: scale(1.1);
-	}
-	.footer-text{
-		text-decoration: none;
-	}
+	transition: transform 0.3s ease;
+	color: black;	
+	text-decoration: none;
+}
+.footer-element:hover{
+	transform: scale(1.1);
+}
+.footer-author{
+	margin-bottom: 10px;
+
+	text-align: center;
+}
+.footer-element{
+	float: left;
+}

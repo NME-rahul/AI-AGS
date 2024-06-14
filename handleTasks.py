@@ -4,7 +4,7 @@ Created on Sun May 26 19:58:46 2024
 
 @author: rahul
 """
-class queue:
+class Queue:
     def __init__(self, size):
         self.queue = [None for _ in range(size)]
         self.front = -1

@@ -11,7 +11,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
 
-os.environ['NLTK_DATA'] =  f"c:/Users/{os.getenv('USER')}/AppData/Roaming/nltk_data"
+os.environ['NLTK_DATA'] =  f"c:/Users/{os.getenv('USERNAME')}/AppData/Roaming/nltk_data"
 
 
 VARIABLES = {
